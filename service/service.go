@@ -62,3 +62,48 @@ func GetExoplanetHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func UpdateExoplanetHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	var exoplanet dto.Exoplanet
+	if err := json.NewDecoder(r.Body).Decode(&exoplanet); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if err := validate.ValidateExoplanet(&exoplanet); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	_, exists := exoplanets[id]
+	if !exists {
+		http.Error(w, dto.ErrExoplanetNotFound.Error(), http.StatusNotFound)
+		return
+	}
+
+	exoplanet.ID = id
+	exoplanets[id] = exoplanet
+	err := json.NewEncoder(w).Encode(exoplanet)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func DeleteExoplanetHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	_, exists := exoplanets[id]
+	if !exists {
+		http.Error(w, dto.ErrExoplanetNotFound.Error(), http.StatusNotFound)
+		return
+	}
+
+	delete(exoplanets, id)
+	w.WriteHeader(http.StatusNoContent)
+	json.NewEncoder(w)
+}
