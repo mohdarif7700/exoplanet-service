@@ -1,0 +1,113 @@
+{
+  "info": {
+    "name": "Exoplanet Service",
+    "description": "API for managing exoplanets",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Add Exoplanet",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Exoplanet Name\", \"description\": \"Exoplanet Description\", \"distance\": 150, \"radius\": 1.2, \"mass\": 5.5, \"type\": \"Terrestrial\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/exoplanet/add",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["exoplanet", "add"]
+        }
+      }
+    },
+    {
+      "name": "List Exoplanets",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/exoplanet/list",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["exoplanet", "list"]
+        }
+      }
+    },
+    {
+      "name": "Get Exoplanet",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/exoplanet/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["exoplanet", ":id"]
+        }
+      }
+    },
+    {
+      "name": "Update Exoplanet",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Updated Exoplanet Name\", \"description\": \"Updated Exoplanet Description\", \"distance\": 200, \"radius\": 1.5, \"mass\": 6.0, \"type\": \"Terrestrial\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/exoplanet/update/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["exoplanet", "update", ":id"]
+        }
+      }
+    },
+    {
+      "name": "Delete Exoplanet",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:8080/exoplanet/remove/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["exoplanet", "remove", ":id"]
+        }
+      }
+    },
+    {
+      "name": "Fuel Estimation",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8080/exoplanet/fuel/:id?crewCapacity=5",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["exoplanet", "fuel", ":id"],
+          "query": [
+            {
+              "key": "crewCapacity",
+              "value": "5"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
